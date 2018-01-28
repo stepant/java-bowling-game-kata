@@ -10,10 +10,9 @@ import org.junit.jupiter.api.TestInstance;
 class BowlingGameTest {
 	private Game g;
 		
-	@BeforeEach
+	@BeforeEach // non static
 	void beforeAll() {
 		g = new Game();
-		System.out.println("Non static before beforeEach.");
 	}
 	
 	private void rollMany(int n, int pins) {
@@ -30,7 +29,6 @@ class BowlingGameTest {
 	
 	@Test
 	void testAllOnes() {
-		System.out.println("Check score:" + g.score());
 		rollMany(20, 1);
 		assertEquals(20, g.score());
 	}
@@ -50,6 +48,12 @@ class BowlingGameTest {
 		g.roll(4);
 		rollMany(16, 0);
 		assertEquals(24, g.score());
+	}
+	
+	@Test
+	void testPerfectGame() {
+		rollMany(12, 10);
+		assertEquals(300, g.score());
 	}
 	
 	private void rollSpare(){
