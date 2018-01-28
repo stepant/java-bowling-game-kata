@@ -1,6 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -10,10 +10,10 @@ import org.junit.jupiter.api.TestInstance;
 class BowlingGameTest {
 	private Game g;
 		
-	@BeforeAll
+	@BeforeEach
 	void beforeAll() {
 		g = new Game();
-		System.out.println("Non static before all.");
+		System.out.println("Non static before beforeEach.");
 	}
 	
 	private void rollMany(int n, int pins) {
@@ -28,11 +28,24 @@ class BowlingGameTest {
 		assertEquals(0, g.score());
 	}
 	
-	
 	@Test
 	void testAllOnes() {
+		System.out.println("Check score:" + g.score());
 		rollMany(20, 1);
 		assertEquals(20, g.score());
+	}
+
+	@Test
+	void testOneSpare() {
+		rollSpare();
+		g.roll(3);
+		rollMany(17, 0);
+		assertEquals(16, g.score());
+	}
+	
+	private void rollSpare(){
+		g.roll(5);
+		g.roll(5);
 	}
 
 }
